@@ -1,6 +1,6 @@
 
-# NODE + EXPRESS
-## Que es Node.js
+# **NODE + EXPRESS**
+## **Que es Node.js**
 **Node.js** es un entorno de ejecución de **JavaScript Asíncrono*** multiplataforma que se utiliza para desarrollar aplicaciones de red escalables del lado del servidor que manejan el procesamiento de datos a alta velocidad. Es ideal para usarlo en casos como aplicaciones de chat, juegos en línea y servicios de transmisión.
 
 > *JavaScript Asíncrono: El código puede ejecutarse sin tener que esperar a que termine una tarea antes de empezar otra. Esto mejora la eficiencia y la rapidez de las aplicaciones.
@@ -11,16 +11,16 @@
  - Uber
  - PayPal
 
-## Que es Express.js
+## **Que es Express.js**
 **Express.js** es un framework de backend **Node.js** minimalista y rápido, que facilita el desarrollo de aplicaciones web, servicios de backend y APIs. Proporciona una serie de herramientas y funciones que permiten gestionar las rutas, solicitudes HTTP y middleware de manera más sencilla y rápida, sin necesidad de escribir mucho código.
 
 Algunas de las características de Express.js son:
 
--   **Gestión de rutas:** Permite manejar las rutas de manera sencilla y estructurada.
--   **Middleware:** Se pueden añadir funciones personalizadas que intercepten las solicitudes, como la autenticación o el manejo de errores.
--   **Escalabilidad:** Facilita la creación de aplicaciones escalables y modulares.
+- **Gestión de rutas:** Permite manejar las rutas de manera sencilla y estructurada.
+- **Middleware:** Se pueden añadir funciones personalizadas que intercepten las solicitudes, como la autenticación o el manejo de errores.
+- **Escalabilidad:** Facilita la creación de aplicaciones escalables y modulares.
 
-## CRUD con Node.js + Express.js
+## **CRUD con Node.js + Express.js**
 Cómo hacer un CRUD (**Crear (Create), Leer (Read), Actualizar (Update), Eliminar (Delete)**) paso a paso con Node.js + Express.js.
 
 ### 1. **Instalar Node.js y Express.js**
@@ -95,7 +95,7 @@ nodemon ./src/index.js
 
 ### 5. **Crear el CRUD**
 
-**·** **Crear (POST)**:
+- **Crear (POST)**:
 ````javascript
 let usuarios = [];
 
@@ -106,14 +106,14 @@ app.post('/usuarios', (req, res) => {
 });
 ````
 
-**·** **Leer (GET)**:
+- **Leer (GET)**:
 ````javascript
 app.get('/usuarios', (req, res) => {
     res.json(usuarios);
 });
 ````
 
-**·** **Leer por ID (GET)**:
+- **Leer por ID (GET)**:
 ````javascript
 app.get('/usuarios/:id', (req, res) => {
     const usuario = usuarios.find(u => u.id === req.params.id);
@@ -121,7 +121,7 @@ app.get('/usuarios/:id', (req, res) => {
 }); 
 ````
 
-**·** **Actualizar (PUT)**:
+- **Actualizar (PUT)**:
 ````javascript
 app.put('/usuarios/:id', (req, res) => {
     const index = usuarios.findIndex(u => u.id === req.params.id);
@@ -134,7 +134,7 @@ app.put('/usuarios/:id', (req, res) => {
 });
 ````
 
-**·** **Eliminar (DELETE)**:
+- **Eliminar (DELETE)**:
 ````javascript
 app.delete('/usuarios/:id', (req, res) => {
     const index = usuarios.findIndex(u => u.id === req.params.id);
@@ -156,3 +156,13 @@ Con **Postman** o **Insomnia**, prueba estas peticiones:
 -   **GET**: Muestra un usuario específico.
 -   **PUT**: Actualiza un usuario.
 -   **DELETE**: Elimina un usuario.
+
+
+## **Ejercicio práctico**
+### Sistema de notas de estudiantes
+Crea una aplicación para gestionar las notas de los estudiantes. Los usuarios deben poder:
+
+- Añadir un estudiante con nombre, ciclo y nota.
+- Ver todas las notas: Muestra una lista con los estudiantes y sus notas.
+- Actualizar una nota de un estudiante existente.
+- Eliminar un estudiante.
