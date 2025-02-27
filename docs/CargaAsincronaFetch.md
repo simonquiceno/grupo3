@@ -41,43 +41,116 @@ console.log("Este mensaje aparece antes de recibir la respuesta del servidor.");
 
 ### CREATE
 ```js
-fetch("https://jsonplaceholder.typicode.com/posts", {
-  method: "POST", // Método HTTP POST para crear
-  headers: { "Content-Type": "application/json" }, // Indicamos que enviamos JSON
-  body: JSON.stringify({ title: "Nueva publicación", body: "Contenido del post", userId: 1 }) // Convertimos el objeto a JSON
-})
-  .then(response => response.json()) // Convertimos la respuesta
-  .then(data => console.log("Registro creado:", data)) // Mostramos la respuesta del servidor
-  .catch(error => console.error("Error al crear registro:", error));
+// Definimos una función asíncrona para crear un nuevo post
+async function crearPost() {
+  try {
+    // Hacemos una petición HTTP con fetch usando el método POST
+    let response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST", // Especificamos que queremos enviar datos (Crear un nuevo recurso)
+      
+      headers: { "Content-Type": "application/json" }, // Indicamos que el cuerpo de la petición es JSON
+      
+      body: JSON.stringify({ 
+        title: "Nueva publicación",  // Título del post
+        body: "Contenido del post",  // Contenido del post
+        userId: 1  // ID del usuario que está creando el post
+      }) // Convertimos el objeto JavaScript a formato JSON antes de enviarlo
+    });
+
+    // Esperamos a que la respuesta del servidor se convierta en JSON
+    let data = await response.json();
+
+    // Mostramos en la consola el objeto recibido como respuesta
+    console.log("Registro creado:", data);
+  } catch (error) {
+    // Capturamos cualquier error en la petición y lo mostramos en la consola
+    console.error("Error al crear registro:", error);
+  }
+}
+
+// Llamamos a la función para ejecutar la petición
+crearPost();
+
 ```
 ### READ
 ```js
-fetch("https://jsonplaceholder.typicode.com/posts")
-  .then(response => response.json()) // Convertimos la respuesta a JSON
-  .then(data => console.log("Publicaciones:", data)) // Mostramos los datos
-  .catch(error => console.error("Error al obtener datos:", error));
+// Función asíncrona para obtener todos los posts
+async function obtenerPublicaciones() {
+  try {
+    // Hacemos una petición GET con fetch para obtener los datos del servidor
+    let response = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    // Convertimos la respuesta en JSON
+    let data = await response.json();
+
+    // Mostramos los datos en la consola
+    console.log("Publicaciones:", data);
+  } catch (error) {
+    // Capturamos cualquier error en la petición
+    console.error("Error al obtener datos:", error);
+  }
+}
+
+// Llamamos a la función para ejecutar la petición
+obtenerPublicaciones();
+
 ```
 ### UPDATE
 ```js
-fetch("https://jsonplaceholder.typicode.com/posts/1", {
-  method: "PUT", // Método PUT para actualizar
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ title: "Título actualizado", body: "Nuevo contenido", userId: 1 }) // Enviamos los nuevos datos
-})
-  .then(response => response.json())
-  .then(data => console.log("Registro actualizado:", data))
-  .catch(error => console.error("Error al actualizar registro:", error));
+// Función asíncrona para actualizar un post
+async function actualizarPost(id) {
+  try {
+    // Hacemos una petición PUT con fetch para modificar un recurso existente
+    let response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: "PUT", // Método HTTP para actualizar datos
+      headers: { "Content-Type": "application/json" }, // Indicamos que el cuerpo es JSON
+      body: JSON.stringify({ 
+        title: "Título actualizado", 
+        body: "Nuevo contenido", 
+        userId: 1 
+      }) // Convertimos el objeto a JSON antes de enviarlo
+    });
+
+    // Convertimos la respuesta en formato JSON
+    let data = await response.json();
+
+    // Mostramos en la consola la respuesta del servidor
+    console.log("Registro actualizado:", data);
+  } catch (error) {
+    // Capturamos cualquier error y lo mostramos
+    console.error("Error al actualizar registro:", error);
+  }
+}
+
+// Llamamos a la función con el ID del post que queremos actualizar
+actualizarPost(1);
+
 ```
 ### DELETE
 ```js
-fetch("https://jsonplaceholder.typicode.com/posts/1", {
-  method: "DELETE" // Método DELETE para eliminar
-})
-  .then(response => {
-    if (response.ok) console.log("Registro eliminado correctamente");
-    else console.error("Error al eliminar");
-  })
-  .catch(error => console.error("Error en la eliminación:", error));
+// Función asíncrona para eliminar un post
+async function eliminarPost(id) {
+  try {
+    // Hacemos una petición DELETE con fetch para eliminar un recurso
+    let response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: "DELETE" // Método HTTP para eliminar un recurso
+    });
+
+    // Verificamos si la respuesta fue exitosa
+    if (response.ok) {
+      console.log(`Registro con ID ${id} eliminado correctamente`);
+    } else {
+      console.error("Error al eliminar");
+    }
+  } catch (error) {
+    // Capturamos cualquier error y lo mostramos
+    console.error("Error en la eliminación:", error);
+  }
+}
+
+// Llamamos a la función con el ID del post que queremos eliminar
+eliminarPost(1);
+
 ```
 ## EJERCICIO PRÁCTICO FETCH
 
