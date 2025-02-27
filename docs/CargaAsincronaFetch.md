@@ -154,4 +154,4 @@ eliminarPost(1);
 ```
 ## EJERCICIO PRÁCTICO FETCH
 
-Crea un pequeña aplicación con Fetch: Agrega un botón al index.html que al clicarlo, permita mostrar un Post. Reutiliza la API JSONPlaceholder.
+Crea un pequeña aplicación con Fetch: Agrega 4 botones al index.html que al clicarlos, permita Crear/Mostrar/Actualizar/Eliminar un Post. Reutiliza la API JSONPlaceholder.
