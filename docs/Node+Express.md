@@ -160,7 +160,7 @@ Con **Postman** o **Insomnia**, prueba estas peticiones:
 
 ## **Ejercicio práctico**
 ### Sistema de notas de estudiantes
-Crea una aplicación para gestionar las notas de los estudiantes. Los usuarios deben poder:
+Crea una API para gestionar las notas de los estudiantes, realizando las conexiones a la base de datos de Sakila. Conecta con la base de datos usando el paquete `pg` e implementa las siguientes rutas:
 
 - [POST] Añadir un estudiante con nombre, ciclo y nota.
 - [GET] Ver todas las notas: Muestra una lista con los estudiantes y sus notas.
