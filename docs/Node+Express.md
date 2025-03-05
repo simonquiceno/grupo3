@@ -95,6 +95,52 @@ nodemon ./src/index.js
 
 ### 5. **Crear el CRUD**
 
+#### **Instalar el paquete pg**
+Primero, hay que instalar el paquete pg:
+
+````bash
+npm install pg
+````
+
+#### **Crear la conexión**
+Crea un archivo db.js para la conexión:
+
+````javascript
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: 'tu_usuario',
+  host: 'localhost',
+  database: 'shakila',
+  password: 'tu_contraseña',
+  port: 5432,
+});
+
+module.exports = pool;
+````
+
+#### **Usar la conexión en una ruta**
+Ejemplo de ruta para obtener estudiantes:
+
+````javascript
+const express = require('express');
+const pool = require('./db');
+const app = express();
+
+app.get('/students', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM students');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al obtener estudiantes');
+  }
+});
+
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Servidor en el puerto ${PORT}`));
+````
+
 - **Crear (POST)**:
 ````javascript
 let usuarios = [];
