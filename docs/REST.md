@@ -32,7 +32,11 @@ REST utiliza los métodos HTTP estándar para interactuar con los recursos:
 
 
 ## Exercici de prova
-*Previamente he creado un proyecto de node con servidor en Express
+
+**Preparacion del ejercicio:**
+
+Crea un proyecto de node con servidor en Express:
+
 - **Abre `server.js` y copia el siguiente código:**
 ```js
 const express = require('express');
@@ -89,30 +93,29 @@ app.listen(3000, () => {
 ```
 node server.js
 ```
-- **Probar la API:**
-*He utilizado la git bash donde ya viene implementado curl
+> Ejercicio: 
+
+***Utiliza la git bash donde ya viene implementado curl para poder hacer uso de los metodos HTTP***
+
+- **Enunciado:**  
+Estás desarrollando una aplicación para una librería digital. La librería necesita una API REST para **gestionar su catálogo de libros**, permitiendo a los administradores agregar, modificar y eliminar libros
+
+- **Los libros deben tener los siguientes atributos:**
+
+	-   `id` (Número único)
+	-   `titulo` (Texto)
+	-   `autor` (Texto)
+	-   `anio_publicacion` (Número)
+	
+------------------------------------------------------------
+
 1. *Obtener todos los libros:*
-````
-curl -X GET http://localhost:3000/libros
-````
+
 2. *Obtener un libro por ID:*
-````
-curl -X GET http://localhost:3000/libros/1
-````
+
 3. *Agregar un nuevo libro:*
-````
-curl -X POST http://localhost:3000/libros \
-     -H "Content-Type: application/json" \
-     -d '{"titulo": "Cien años de soledad", "autor": "Gabriel García Márquez", "anio_publicacion": 1967}'
-````
+
 4. *Actualizar un libro:*
-````
-curl -X PUT http://localhost:3000/libros/2 \
-     -H "Content-Type: application/json" \
-     -d '{"titulo": "1984 (Edición Especial)"}'
-````
+
 5. *Eliminar un libro:*
-````
-curl -X DELETE http://localhost:3000/libros/1
-````
 
