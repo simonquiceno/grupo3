@@ -143,52 +143,52 @@ app.listen(PORT, () => console.log(`Servidor en el puerto ${PORT}`));
 
 - **Crear (POST)**:
 ````javascript
-let usuarios = [];
+let students = [];
 
-app.post('/usuarios', (req, res) => {
-    const usuario = req.body;
-    usuarios.push(usuario);
-    res.status(201).send('Usuario creado');
+app.post('/students', (req, res) => {
+    const student = req.body;
+    students.push(student);
+    res.status(201).send('Alumno creado');
 });
 ````
 
 - **Leer (GET)**:
 ````javascript
-app.get('/usuarios', (req, res) => {
-    res.json(usuarios);
+app.get('/students', (req, res) => {
+    res.json(students);
 });
 ````
 
 - **Leer por ID (GET)**:
 ````javascript
-app.get('/usuarios/:id', (req, res) => {
-    const usuario = usuarios.find(u => u.id === req.params.id);
-    usuario ? res.json(usuario) : res.status(404).send('Usuario no encontrado');
+app.get('/students/:id', (req, res) => {
+    const student = students.find(u => u.id === req.params.id);
+    student ? res.json(student) : res.status(404).send('Alumno no encontrado');
 }); 
 ````
 
 - **Actualizar (PUT)**:
 ````javascript
-app.put('/usuarios/:id', (req, res) => {
-    const index = usuarios.findIndex(u => u.id === req.params.id);
+app.put('/students/:id', (req, res) => {
+    const index = students.findIndex(u => u.id === req.params.id);
     if (index !== -1) {
-        usuarios[index] = req.body;
-        res.send('Usuario actualizado');
+        students[index] = req.body;
+        res.send('Alumno actualizado');
     } else {
-        res.status(404).send('Usuario no encontrado');
+        res.status(404).send('Alumno no encontrado');
     }
 });
 ````
 
 - **Eliminar (DELETE)**:
 ````javascript
-app.delete('/usuarios/:id', (req, res) => {
-    const index = usuarios.findIndex(u => u.id === req.params.id);
+app.delete('/students/:id', (req, res) => {
+    const index = students.findIndex(u => u.id === req.params.id);
     if (index !== -1) {
-        usuarios.splice(index, 1);
-        res.send('Usuario eliminado');
+        students.splice(index, 1);
+        res.send('Alumno eliminado');
     } else {
-        res.status(404).send('Usuario no encontrado');
+        res.status(404).send('Alumno no encontrado');
     }
 });
 ````
@@ -197,11 +197,11 @@ app.delete('/usuarios/:id', (req, res) => {
 Para probar nuestro CRUD, podemos usar alguno de estos softwares:
 Con **Postman** o **Insomnia**, prueba estas peticiones:
 
--   **POST**: Crea un usuario (con datos como `id`, `nombre` y `edad`).
--   **GET**: Muestra todos los usuarios.
--   **GET**: Muestra un usuario específico.
--   **PUT**: Actualiza un usuario.
--   **DELETE**: Elimina un usuario.
+-   **POST**: Crea un alumno (con datos como `id`, `nombre` y `edad`).
+-   **GET**: Muestra todos los alumnos.
+-   **GET**: Muestra un alumnos específico.
+-   **PUT**: Actualiza un alumno.
+-   **DELETE**: Elimina un alumno.
 
 
 ## **Ejercicio práctico**
