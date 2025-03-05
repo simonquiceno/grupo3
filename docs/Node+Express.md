@@ -162,7 +162,8 @@ Con **Postman** o **Insomnia**, prueba estas peticiones:
 ### Sistema de notas de estudiantes
 Crea una aplicación para gestionar las notas de los estudiantes. Los usuarios deben poder:
 
-- Añadir un estudiante con nombre, ciclo y nota.
-- Ver todas las notas: Muestra una lista con los estudiantes y sus notas.
-- Actualizar una nota de un estudiante existente.
-- Eliminar un estudiante.
+- [POST] Añadir un estudiante con nombre, ciclo y nota.
+- [GET] Ver todas las notas: Muestra una lista con los estudiantes y sus notas.
+- [GET] Ver las notas de un alumno en concreto.
+- [PUT] Actualizar una nota de un estudiante existente.
+- [DELETE] Eliminar un estudiante.
