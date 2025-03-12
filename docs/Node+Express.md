@@ -203,6 +203,41 @@ Con **Postman** o **Insomnia**, prueba estas peticiones:
 -   **PUT**: Actualiza un alumno.
 -   **DELETE**: Elimina un alumno.
 
+### Cómo utilizar **Postman** para probar el CRUD
+
+### 1. Instalar **Postman**
+
+Hay que instalar **Postman** desde su página oficial: [Postman](https://www.postman.com/downloads/)
+
+### 2. Iniciar tu servidor Node.js
+
+Antes de comprobar las solicitudes con **Postman**, hay que utilizar el comando para correr Node.js:
+
+````bash
+nodemon app.js
+````
+
+### 3. Realizar solicitudes con Postman
+Abriremos Postman y crearemos las siguientes solicitudes para probar las operaciones CRUD.
+
+#### 3.1 [POST] Añadir un estudiante
+1. Abre Postman.
+2. Selecciona el tipo de solicitud como POST.
+
+En la barra de URL, ingresa la URL de tu API (por ejemplo: http://localhost:3000/students).
+
+Ve a la pestaña Body, selecciona raw y elige JSON en el menú desplegable.
+
+En el área de texto, agrega el siguiente cuerpo de la solicitud:
+
+json
+Copiar
+{
+  "nombre": "Juan Pérez",
+  "ciclo": "Ingeniería",
+  "nota": 8.5
+}
+Haz clic en Send para enviar la solicitud. Si todo está bien, deberías recibir una respuesta indicando que el estudiante fue añadido correctamente.
 
 ## **Ejercicio práctico**
 ### Sistema de notas de estudiantes
