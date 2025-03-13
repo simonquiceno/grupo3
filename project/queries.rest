@@ -27,3 +27,6 @@ Content-Type: application/json;
         "Behind the Scenes"
         ],
 }
+
+###
+delete http://localhost:3080/film/995
