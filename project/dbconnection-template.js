@@ -1,7 +1,7 @@
 export default data = {
   user: 'postgres',
   host: 'localhost',
-  database: 'shakila',
-  password: 'tu_contraseña',
+  database: 'sakila',
+  password: 'badia123',
   port: 5432,
 }
