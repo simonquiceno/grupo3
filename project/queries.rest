@@ -10,9 +10,6 @@ POST http://localhost:3080/film
 Content-Type: application/json;
 
 {
-    
-    
-
     "film_id": 1001,
     "title": "ZORRO ARK",
     "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
