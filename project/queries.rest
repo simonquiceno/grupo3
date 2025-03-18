@@ -3,7 +3,7 @@
 GET http://localhost:3080/film
 
 ### Obtener una Pelicula por su ID
-GET http://localhost:3080/film/1019
+GET http://localhost:3080/film/502
 
 ### Crear una Pelicula
 POST http://localhost:3080/film
@@ -50,4 +50,4 @@ Content-Type: application/json
 }
 
 ### Eliminar una Pelicula
-DELETE http://localhost:3080/film/1019
+DELETE http://localhost:3080/film/502
