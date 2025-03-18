@@ -3,7 +3,7 @@
 GET http://localhost:3080/film
 
 ###
-GET http://localhost:3080/
+GET http://localhost:3080/film/1000
 
 ###
 POST http://localhost:3080/film
@@ -11,21 +11,21 @@ Content-Type: application/json;
 
 {
     "film_id": 1001,
-    "title": "ACADEMY DINOSAUR",
-    "description": "A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies",
-    "release_year": 2006,
+    "title": "ZORRO ARK",
+    "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
+    "release_year": "2006",
     "language_id": 1,
     "original_language_id": null,
-    "rental_duration": 6,
-    "rental_rate": "0.99",
-    "length": 86,
-    "replacement_cost": "20.99",
-    "rating": "PG",
-    "last_update": "2006-02-15T04:03:42.000Z",
+    "rental_duration": "3",
+    "rental_rate": "4.99",
+    "length": "50",
+    "replacement_cost": "18.99",
+    "rating": "NC-17",
+    "last_update": "2025-12-28T04:03:42.000Z",
     "special_features": [
         "Deleted Scenes",
         "Behind the Scenes"
-        ],
+    ]
 }
 
 ###
