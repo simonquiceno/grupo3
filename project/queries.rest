@@ -1,32 +1,53 @@
 
-### Obtener todas las peliculas
+### Obtener todas las Peliculas
 GET http://localhost:3080/film
 
-###
-GET http://localhost:3080/
+### Obtener una Pelicula por su ID
+GET http://localhost:3080/film/1019
 
-###
+### Crear una Pelicula
 POST http://localhost:3080/film
-Content-Type: application/json;
+Content-Type: application/json
 
 {
-    "film_id": 1001,
-    "title": "ACADEMY DINOSAUR",
-    "description": "A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies",
-    "release_year": 2006,
+    "title": "ZORRujO ARK",
+    "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
+    "release_year": 2005,
     "language_id": 1,
     "original_language_id": null,
-    "rental_duration": 6,
-    "rental_rate": "0.99",
-    "length": 86,
-    "replacement_cost": "20.99",
-    "rating": "PG",
-    "last_update": "2006-02-15T04:03:42.000Z",
+    "rental_duration": "3",
+    "rental_rate": "4.95",
+    "length": 50,
+    "replacement_cost": "17.99",
+    "rating": "NC-17",
     "special_features": [
         "Deleted Scenes",
         "Behind the Scenes"
-        ],
+    ],
+    "last_update": "2024-02-15 05:03:42"
 }
 
-###
-delete http://localhost:3080/film/995
+### Editar una Pelicula
+PUT http://localhost:3080/film/1019
+Content-Type: application/json
+
+{
+    "title": "ZORRujddasO KRAK",
+    "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
+    "release_year": 2005,
+    "language_id": 1,
+    "original_language_id": null,
+    "rental_duration": "3",
+    "rental_rate": "4.95",
+    "length": 50,
+    "replacement_cost": "17.99",
+    "rating": "NC-17",
+    "special_features": [
+        "Deleted Scenes",
+        "Behind the Scenes"
+    ],
+    "last_update": "2024-02-15 05:03:42"
+}
+
+### Eliminar una Pelicula
+DELETE http://localhost:3080/film/1019
