@@ -62,10 +62,18 @@ route.delete('/:id', async (req, res) => {
     const pgClient = new pg.Client(dbconnection);
     await pgClient.connect();
 
-    let result = await pgClient.query('delete from film where film_id = $1', [req.params.id]);
+    let inventoryId = await pgClient.query('select inventory_id from inventory where film_id = $1', [req.params.id]);
+    let rentalId = await pgClient.query('select rental_id from rental where inventory_id = $1', [inventoryId]);
+    let paymentDelete = await pgClient.query('delete from payment where rental_id = $1', [rentalId]);
+    let rentalDelete = await pgClient.query('delete from rental where inventory_id = $1', [inventoryId]);
+    let inventoryDelete = await pgClient.query('delete from inventory where film_id = $1', [req.params.id]);
+    
+    let filmCategoryDelete = await pgClient.query('delete from film_category where film_id = $1', [req.params.id]);
+    let filmActorDelete = await pgClient.query('delete from inventory where film_actor = $1', [req.params.id]);
+
+    let filmDelete = await pgClient.query('delete from film where film_id = $1', [req.params.id]);
 
     res.json({ message: 'Pelicula eliminada correctamente', film_id: req.params.id });
-
     await pgClient.end();
 })
 
