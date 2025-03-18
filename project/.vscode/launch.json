@@ -15,7 +15,7 @@
             "runtimeArgs": [
                 "--watch"
             ],
-            "program": "${workspaceFolder}\\backend\\routes\\film.js"
+            "program": "${workspaceFolder}\\app.js"
         }
     ]
 }
