@@ -3,14 +3,14 @@
 GET http://localhost:3080/film
 
 ### Obtener una Pelicula por su ID
-GET http://localhost:3080/film/502
+GET http://localhost:3080/film/1020
 
 ### Crear una Pelicula
 POST http://localhost:3080/film
 Content-Type: application/json
 
 {
-    "title": "ZORRujO ARK",
+    "title": "300: Rise of an Empire",
     "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
     "release_year": 2005,
     "language_id": 1,
@@ -28,17 +28,17 @@ Content-Type: application/json
 }
 
 ### Editar una Pelicula
-PUT http://localhost:3080/film/1019
+PUT http://localhost:3080/film/1020
 Content-Type: application/json
 
 {
-    "title": "ZORRujddasO KRAK",
+    "title": "300: El origen de un imperio",
     "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
     "release_year": 2005,
     "language_id": 1,
     "original_language_id": null,
     "rental_duration": "3",
-    "rental_rate": "4.95",
+    "rental_rate": "9.55",
     "length": 50,
     "replacement_cost": "17.99",
     "rating": "NC-17",
@@ -50,4 +50,4 @@ Content-Type: application/json
 }
 
 ### Eliminar una Pelicula
-DELETE http://localhost:3080/film/502
+DELETE http://localhost:3080/film/1020
