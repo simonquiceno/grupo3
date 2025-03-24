@@ -23,8 +23,7 @@ route.get('/:id', async (req, res) => {
     const pgClient = new pg.Client(dbconnection);
     await pgClient.connect();
 
-    // let resultMal = await pgClient.query('select * from film where film_id = '+ req.params.id +';');
-    let result = await pgClient.query('select * from inventory where inventory_id = $1', [req.params.id]);
+    let result = await pgClient.query('select inventory.inventory_id, inventory.film_id, inventory.store_id, film.title AS film_title from inventory join film using(film_id) where inventory_id = $1', [req.params.id]);
     res.json(result.rows[0]);
 
     await pgClient.end();

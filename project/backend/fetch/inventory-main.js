@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let btnCrear = document.getElementById('btnCrear');
     btnModalAñadir.addEventListener('click', () => {
         modalAñadir.showModal();
-        // loadInventory()
+        loadInventory()
     });
     closeModalAñadir.addEventListener('click', () => {
         modalAñadir.close();
@@ -160,12 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-/* 
+
     // GESTIÓN DE BOTONES VENTANAS - AÑADIR
 
-    let closeModalActualizar = document.getElementById('btnCloseActualizar');
+    // botón cerrar
+    let closeModalActualizar = document.getElementById('cerrarModalActualizar');
     closeModalActualizar.addEventListener('click', () => {
-        let modalActualizar = document.getElementById('ventanaActualizar');
+        let modalActualizar = document.getElementById('modalInventarioActualizar');
         modalActualizar.close();
     });
 
@@ -175,33 +176,41 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     // ACTUALIZAR
     async function loadInventoryUpdate(event) {
-        let modalActualizar = document.getElementById('ventanaActualizar');
+        let modalActualizar = document.getElementById('modalInventarioActualizar');
         modalActualizar.showModal();
         let idActualizar = event.target.getAttribute('data-id');
 
         try {
             let response = await fetch(`http://localhost:3080/inventory/${idActualizar}`);
             let data = await response.json();
+            console.log('inventory_id' + data.inventory_id);
+            console.log('film id' + data.film_id);
+            console.log('título' + data.film_title);
+            console.log(data);
 
             let selectInventoryid_v2 = document.getElementById('inventory_id_v2');
             let selectFilm_v2 = document.getElementById('actualizar_film_id_v2');
             let selectStore_v2 = document.getElementById('actualizar_store_id_v2');
 
-            // console.log('titulo ' + data.film_id)
-            // console.log('storeid ' + data.store_id)
             selectInventoryid_v2.value = data.inventory_id;
+
+            // Opción seleccionada de film_id
             selectFilm_v2.value = data.film_id;
-            selectFilm_v2.textContent = data.film_id;
+
+            let optionFilm = document.createElement('option')
+            optionFilm.textContent = data.film_title
+            optionFilm.value = data.film_id
+            optionFilm.selected = true;
+            selectFilm_v2.appendChild(optionFilm)
+
+            // Opción seleccionada de store
             selectStore_v2.value = data.store_id;
 
-
-            console.log(selectFilm_v2.value)
-            console.log(selectStore_v2.value)
-            // let optionFilm = document.createElement('option')
-            // optionFilm.textContent = `${data.film_id}`
-            // optionFilm.value = data.film_id
-            // optionFilm.selected = true;
-            // selectInventoryid_v2.appendChild(optionFilm)
+            let optionStore = document.createElement('option')
+            optionStore.textContent = data.store_id
+            optionStore.value = data.store_id
+            optionStore.selected = true;
+            selectStore_v2.appendChild(optionStore)
 
 
         } catch (error) {
@@ -214,5 +223,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     
-  */  
+  
 })

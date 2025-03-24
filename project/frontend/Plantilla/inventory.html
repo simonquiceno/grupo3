@@ -103,25 +103,59 @@
     <div class="modal-body">
       <form id="formInventario">
         <div class="form-group">
-          <label for="inventario_id">ID Inventario</label>
-          <input type="text" id="inventario_id" class="form-control" required>
+          <label for="inventory_id">ID Inventario</label>
+          <input type="text" id="inventory_id" class="form-control" required>
         </div>
         
         <div class="form-group">
           <label for="title">Título</label>
-          <select id="title" class="form-control" required>
+          <select id="añadir_film_id" class="form-control" required>
             <option value="" disabled selected>Seleccione un título</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="store_id">Tienda</label>
-          <select id="store_id" class="form-control" required>
+          <select id="añadir_store_id" class="form-control" required>
             <option value="" disabled selected>Seleccione una tienda</option>
           </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Guardar</button>
+        <button id="btnCrear" type="submit" class="btn btn-success">Guardar</button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- actualizar -->
+
+  <dialog id="modalInventarioActualizar">
+    <div class="modal-header">
+      <h3>Actualizar Inventario</h3>
+      <button id="cerrarModalActualizar" class="btn btn-danger">X</button>
+    </div>
+    
+    <div class="modal-body">
+      <form id="formInventario">
+        <div class="form-group">
+          <label for="inventory_id_v2">ID Inventario</label>
+          <input type="text" id="inventory_id_v2" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="title">Título</label>
+          <select id="actualizar_film_id_v2" class="form-control" required>
+            <option value="" disabled selected>Seleccione un título</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="store_id">Tienda</label>
+          <select id="actualizar_store_id_v2" class="form-control" required>
+            <option value="" disabled selected>Seleccione una tienda</option>
+          </select>
+        </div>
+
+        <button id="btnActualizar" type="submit" class="btn btn-success">Actualizar</button>
       </form>
     </div>
   </dialog>
