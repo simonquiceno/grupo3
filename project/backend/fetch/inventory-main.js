@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     let spinner = document.getElementById("spinner");
-    let tabla = document.getElementById('tablaInventario')
+    let tabla = document.getElementById('tablaInventario');
 
     async function filterTable(){
         spinner.style.display = "block";
         try {
             let response = await fetch('http://localhost:3080/inventory');
             let data = await response.json();
-            
             tabla.innerHTML = '';
             
             data.forEach(registro =>{
@@ -28,17 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // IMPORTANTE, AQUÍ HAY QUE ASOCIAR EL EVENTO DE LOS BOTONES DE ELIMINAR Y EDITAR
 
-            let botonDelete = document.querySelectorAll('.eliminar');
-            botonDelete.forEach(boton => {
-                boton.addEventListener('click', deleteRecord);
-            })
+            // let botonDelete = document.querySelectorAll('.eliminar');
+            // botonDelete.forEach(boton => {
+            //     boton.addEventListener('click', deleteRecord);
+            // })
 
             // aquí es para actualizar
 
-            let botonActualizar = document.querySelectorAll('.editar');
-            botonActualizar.forEach(boton => {
-                boton.addEventListener('click', loadInventoryUpdate)
-            })
+            // let botonActualizar = document.querySelectorAll('.editar');
+            // botonActualizar.forEach(boton => {
+            //     boton.addEventListener('click', loadInventoryUpdate)
+            // })
 
             // Cuando carguen los datos quitamos ese spiner
             spinner.style.display = "none";
@@ -48,8 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+
+    filterTable();
     // DELETE
-    async function deleteRecord(event){
+    /* async function deleteRecord(event){
         let idDelete = event.target.getAttribute('data-id');
         try {
             let response = await fetch (`http://localhost:3080/inventory/${idDelete}`, 
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    filterTable();
+
 
     // GESTIÓN DE BOTONES VENTANAS - AÑADIR
     let btnModalAñadir = document.getElementById('boton_añadir_modal');
@@ -203,5 +204,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     
-    
+  */  
 })
