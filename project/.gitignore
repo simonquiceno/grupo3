@@ -1,2 +1,5 @@
 node_modules
 dbconnection.js
+package.json
+package-lock.json
+.vscode/launch.json
