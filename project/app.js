@@ -2,6 +2,7 @@ import express from "express";
 // import pg from "pg";
 // import cors from 'cors';
 import film from "./backend/routes/film.js";
+import film from "./backend/routes/city.js";
 // import actor from "./backend/routes/actor.js";
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 
 app.use('/film', film);
+app.use('/city', film);
 
 
 app.listen(PORT, () => {
