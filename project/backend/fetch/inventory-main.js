@@ -25,22 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 tabla.appendChild(fila)
             });
 
-            // IMPORTANTE, AQUÍ HAY QUE ASOCIAR EL EVENTO DE LOS BOTONES DE ELIMINAR Y EDITAR
+        
+            // Cuando carguen los datos quitamos ese spiner
+            spinner.style.display = "none";
 
-            // let botonDelete = document.querySelectorAll('.eliminar');
-            // botonDelete.forEach(boton => {
-            //     boton.addEventListener('click', deleteRecord);
-            // })
+            // IMPORTANTE, AQUÍ HAY QUE ASOCIAR EL EVENTO DE LOS BOTONES DE ELIMINAR Y EDITAR
+            let botonDelete = document.querySelectorAll('.eliminar');
+            botonDelete.forEach(boton => {
+                boton.addEventListener('click', deleteRecord);
+            })
 
             // aquí es para actualizar
 
-            // let botonActualizar = document.querySelectorAll('.editar');
-            // botonActualizar.forEach(boton => {
-            //     boton.addEventListener('click', loadInventoryUpdate)
-            // })
+            let botonActualizar = document.querySelectorAll('.editar');
+            botonActualizar.forEach(boton => {
+                boton.addEventListener('click', loadInventoryUpdate)
+            })
 
-            // Cuando carguen los datos quitamos ese spiner
-            spinner.style.display = "none";
+            
+            
 
         } catch (error) {
             console.log(error)
@@ -50,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterTable();
     // DELETE
-    /* async function deleteRecord(event){
+
+    async function deleteRecord(event){
         let idDelete = event.target.getAttribute('data-id');
         try {
             let response = await fetch (`http://localhost:3080/inventory/${idDelete}`, 
@@ -64,17 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(error);
         }
     }
+    
 
 
 
     // GESTIÓN DE BOTONES VENTANAS - AÑADIR
+
+    //botón abrir
     let btnModalAñadir = document.getElementById('boton_añadir_modal');
-    let modalAñadir = document.getElementById('ventanaAñadir');
-    let closeModalAñadir = document.getElementById('btnCloseAñadir');
+    // ventana
+    let modalAñadir = document.getElementById('modalInventario');
+    //boton cerrar
+    let closeModalAñadir = document.getElementById('cerrarModalAñadir');
+    //boton crear
     let btnCrear = document.getElementById('btnCrear');
     btnModalAñadir.addEventListener('click', () => {
         modalAñadir.showModal();
-        loadInventory()
+        // loadInventory()
     });
     closeModalAñadir.addEventListener('click', () => {
         modalAñadir.close();
@@ -150,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
+/* 
     // GESTIÓN DE BOTONES VENTANAS - AÑADIR
 
     let closeModalActualizar = document.getElementById('btnCloseActualizar');
