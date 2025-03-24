@@ -2,7 +2,7 @@ import express from "express";
 // import pg from "pg";
 import cors from 'cors';
 import film from "./backend/routes/film.js";
-import film from "./backend/routes/city.js";
+import city from "./backend/routes/city.js";
 import inventory from "./backend/routes/inventory.js";
 import store from "./backend/routes/store.js";
 
