@@ -90,4 +90,5 @@ route.delete('/:id', async (req, res) => {
         await pgClient.end();
     }
 });
+
 export default route;
