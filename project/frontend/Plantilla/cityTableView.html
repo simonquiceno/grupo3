@@ -105,16 +105,18 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">City Table</h3>
+                                <button class="btn btn-primary float-right" onclick="showCreateForm()">Add City</button>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th style="width: 10px">#</th>
+                                            <th>City ID</th>
                                             <th>City</th>
                                             <th>Country ID</th>
                                             <th>Last Update</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="city-table-body">
@@ -157,25 +159,139 @@
 <!-- AdminLTE for demo purposes -->
 <script src="./Prueba_files/demo.js.descarga"></script>
 
+<!-- CRUD Form Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLabel">Add City</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="crudForm">
+                    <input type="hidden" id="cityId">
+                    <div class="form-group">
+                        <label for="cityName">City Name</label>
+                        <input type="text" class="form-control" id="cityName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="countryId">Country ID</label>
+                        <input type="number" class="form-control" id="countryId" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        fetchCities();
+
+        document.getElementById('crudForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const cityId = document.getElementById('cityId').value;
+            if (cityId) {
+                updateCity(cityId);
+            } else {
+                createCity();
+            }
+        });
+    });
+
+    function fetchCities() {
         fetch('/api/city')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById('city-table-body');
-                data.forEach((city, index) => {
+                tableBody.innerHTML = '';
+                data.forEach((city) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${index + 1}</td>
+                        <td>${city.city_id}</td>
                         <td>${city.city}</td>
                         <td>${city.country_id}</td>
                         <td>${new Date(city.last_update).toLocaleString()}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="showUpdateForm(${city.city_id}, '${city.city}', ${city.country_id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteCity(${city.city_id})">Delete</button>
+                        </td>
                     `;
                     tableBody.appendChild(row);
                 });
             })
             .catch(error => console.error('Error fetching city data:', error));
-    });
+    }
+
+    function showCreateForm() {
+        document.getElementById('crudModalLabel').innerText = 'Add City';
+        document.getElementById('cityId').value = '';
+        document.getElementById('cityName').value = '';
+        document.getElementById('countryId').value = '';
+        $('#crudModal').modal('show');
+    }
+
+    function showUpdateForm(cityId, cityName, countryId) {
+        document.getElementById('crudModalLabel').innerText = 'Update City';
+        document.getElementById('cityId').value = cityId;
+        document.getElementById('cityName').value = cityName;
+        document.getElementById('countryId').value = countryId;
+        $('#crudModal').modal('show');
+    }
+
+    function createCity() {
+        const cityName = document.getElementById('cityName').value;
+        const countryId = document.getElementById('countryId').value;
+
+        fetch('/api/city', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ city: cityName, country_id: countryId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('#crudModal').modal('hide');
+            fetchCities();
+        })
+        .catch(error => console.error('Error creating city:', error));
+    }
+
+    function updateCity(cityId) {
+        const cityName = document.getElementById('cityName').value;
+        const countryId = document.getElementById('countryId').value;
+
+        fetch(`/api/city/${cityId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ city: cityName, country_id: countryId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('#crudModal').modal('hide');
+            fetchCities();
+        })
+        .catch(error => console.error('Error updating city:', error));
+    }
+
+    function deleteCity(cityId) {
+        if (confirm('Are you sure you want to delete this city?')) {
+            fetch(`/api/city/${cityId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                fetchCities();
+            })
+            .catch(error => console.error('Error deleting city:', error));
+        }
+    }
 </script>
 </body>
 </html>
