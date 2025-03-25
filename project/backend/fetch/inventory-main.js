@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let data = await response.json();
 
             // peticiones para cargar películas
-            let responseFilm = await fetch('http://localhost:3080/film/')
+            let responseFilm = await fetch('http://localhost:3080/film/');
             let dataFilm = await responseFilm.json();
             // peticiones para cargar stores
             let responseStore = await fetch('http://localhost:3080/store/');
@@ -196,31 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let selectFilm_v2 = document.getElementById('actualizar_film_id_v2');
             let selectStore_v2 = document.getElementById('actualizar_store_id_v2');
 
-            console.log('id ' + data.inventory_id + 'film_id ' + data.film_id + 'store_id ' + data.store_id)
             // le damos valor al input inventory
             selectInventoryid_v2.value = data.inventory_id;
 
-            // le damos valor la opción seleccionada de film_id
-            selectFilm_v2.value = data.film_id;
-
-            console.log('en el select: ' + selectInventoryid_v2.value + ' film_id: ' + selectFilm_v2.value)
-
-            // option para el desplegable
-            let optionFilm = document.createElement('option')
-            optionFilm.textContent = data.film_title
-            optionFilm.value = data.film_id
-            optionFilm.selected = true;
-            selectFilm_v2.appendChild(optionFilm)
-
-            // Opción seleccionada de store, aquí le damos valor
-            selectStore_v2.value = data.store_id;
-
-            // aquí creo el option para el desplegable seleccionado por defecto de store
-            let optionStore = document.createElement('option')
-            optionStore.textContent = data.store_id
-            optionStore.value = data.store_id
-            optionStore.selected = true;
-            selectStore_v2.appendChild(optionStore)
 
 
             // Cargamos las películas aquí ( para tener todo en el desplegable)
@@ -242,6 +220,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectStore_v2.appendChild(optionStore);
             })
 
+
+            // option para el desplegable
+
+            let optionFilm = document.createElement('option')
+            optionFilm.textContent = data.film_title
+            optionFilm.value = data.film_id
+            optionFilm.selected = true;
+            selectFilm_v2.appendChild(optionFilm)
+
+            // aquí creo el option para el desplegable seleccionado por defecto de store
+            let optionStore = document.createElement('option')
+            optionStore.textContent = data.store_id
+            optionStore.value = data.store_id
+            optionStore.selected = true;
+            selectStore_v2.appendChild(optionStore)
+
+            
         } catch (error) {
             console.log(error);
         }
