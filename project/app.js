@@ -16,6 +16,8 @@ app.use(express.json());
 
 app.use('/film', film);
 app.use('/city', city);
+app.use('/inventory', inventory);
+app.use('/store', store);
 
 
 app.listen(PORT, () => {
