@@ -196,11 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let selectFilm_v2 = document.getElementById('actualizar_film_id_v2');
             let selectStore_v2 = document.getElementById('actualizar_store_id_v2');
 
+            console.log('id ' + data.inventory_id + 'film_id ' + data.film_id + 'store_id ' + data.store_id)
             // le damos valor al input inventory
             selectInventoryid_v2.value = data.inventory_id;
 
             // le damos valor la opción seleccionada de film_id
             selectFilm_v2.value = data.film_id;
+
+            console.log('en el select: ' + selectInventoryid_v2.value + ' film_id: ' + selectFilm_v2.value)
 
             // option para el desplegable
             let optionFilm = document.createElement('option')
@@ -221,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             // Cargamos las películas aquí ( para tener todo en el desplegable)
-
+            selectFilm_v2.innerHTML = '<option value="" disabled>Seleccione una película</option>'; // Limpia opciones
             dataFilm.forEach(opcion => {
                 let optionAdd = document.createElement('option')
                 optionAdd.value = opcion.film_id;
@@ -231,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             // Cargamos las tiendas aquí ( para tener todo en el desplegable)
+            selectStore_v2.innerHTML = '<option value="" disabled>Seleccione una Store</option>';
             dataStore.forEach(option => {
                 let optionStore = document.createElement('option');
                 optionStore.value = option.store_id;
@@ -252,19 +256,26 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(selectInventoryid_v2 + selectFilm_v2 + selectStore_v2)
 
         if(selectInventoryid_v2 != '' && selectFilm_v2 != '' && selectStore_v2 != '') {
+            console.log("Enviando a API:", JSON.stringify({
+                film_id: selectFilm_v2,
+                store_id: selectStore_v2,
+                inventory_id: selectInventoryid_v2
+            }));
             try {
                 let response = await fetch(`http://localhost:3080/inventory/${selectInventoryid_v2}`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         film_id: selectFilm_v2,
-                        istore_id: selectStore_v2,
-                        inventory_id: selectInventoryid_v2
+                        store_id: selectStore_v2
                     })
                 });
                 
                 if(response.ok) {
                     console.log('hecho')
+                    let modalActualizar = document.getElementById('modalInventarioActualizar');
+                    modalActualizar.close();
+                    filterTable();
                 }
             } catch (error) {
                 console.log(error)
