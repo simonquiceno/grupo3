@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let btnActualizar = document.getElementById('btnActualizar');
     btnActualizar.addEventListener('click', () => {
-        createInventory();
+        updateInventory();
     })
     // ACTUALIZAR
     async function loadInventoryUpdate(event) {
@@ -183,35 +183,60 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             let response = await fetch(`http://localhost:3080/inventory/${idActualizar}`);
             let data = await response.json();
-            console.log('inventory_id' + data.inventory_id);
-            console.log('film id' + data.film_id);
-            console.log('título' + data.film_title);
-            console.log(data);
 
+            // peticiones para cargar películas
+            let responseFilm = await fetch('http://localhost:3080/film/')
+            let dataFilm = await responseFilm.json();
+            // peticiones para cargar stores
+            let responseStore = await fetch('http://localhost:3080/store/');
+            let dataStore = await responseStore.json();
+
+            // obtención del valor de los inputs
             let selectInventoryid_v2 = document.getElementById('inventory_id_v2');
             let selectFilm_v2 = document.getElementById('actualizar_film_id_v2');
             let selectStore_v2 = document.getElementById('actualizar_store_id_v2');
 
+            // le damos valor al input inventory
             selectInventoryid_v2.value = data.inventory_id;
 
-            // Opción seleccionada de film_id
+            // le damos valor la opción seleccionada de film_id
             selectFilm_v2.value = data.film_id;
 
+            // option para el desplegable
             let optionFilm = document.createElement('option')
             optionFilm.textContent = data.film_title
             optionFilm.value = data.film_id
             optionFilm.selected = true;
             selectFilm_v2.appendChild(optionFilm)
 
-            // Opción seleccionada de store
+            // Opción seleccionada de store, aquí le damos valor
             selectStore_v2.value = data.store_id;
 
+            // aquí creo el option para el desplegable seleccionado por defecto de store
             let optionStore = document.createElement('option')
             optionStore.textContent = data.store_id
             optionStore.value = data.store_id
             optionStore.selected = true;
             selectStore_v2.appendChild(optionStore)
 
+
+            // Cargamos las películas aquí ( para tener todo en el desplegable)
+
+            dataFilm.forEach(opcion => {
+                let optionAdd = document.createElement('option')
+                optionAdd.value = opcion.film_id;
+                optionAdd.textContent = opcion.title;
+                selectFilm_v2.appendChild(optionAdd);
+            });
+
+
+            // Cargamos las tiendas aquí ( para tener todo en el desplegable)
+            dataStore.forEach(option => {
+                let optionStore = document.createElement('option');
+                optionStore.value = option.store_id;
+                optionStore.textContent = option.store_id;
+                selectStore_v2.appendChild(optionStore);
+            })
 
         } catch (error) {
             console.log(error);
@@ -220,8 +245,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function updateInventory() {
+        let selectInventoryid_v2 = document.getElementById('inventory_id_v2').value;
+        let selectFilm_v2 = document.getElementById('actualizar_film_id_v2').value;
+        let selectStore_v2 = document.getElementById('actualizar_store_id_v2').value;
 
+        console.log(selectInventoryid_v2 + selectFilm_v2 + selectStore_v2)
+
+        if(selectInventoryid_v2 != '' && selectFilm_v2 != '' && selectStore_v2 != '') {
+            try {
+                let response = await fetch(`http://localhost:3080/inventory/${selectInventoryid_v2}`, {
+                    method: 'PUT',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        film_id: selectFilm_v2,
+                        istore_id: selectStore_v2,
+                        inventory_id: selectInventoryid_v2
+                    })
+                });
+                
+                if(response.ok) {
+                    console.log('hecho')
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
     
-  
+  // #region CORRECION
+
+  // #endregion
 })
