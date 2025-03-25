@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Table View</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="./Prueba_files/css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./Prueba_files/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="./Prueba_files/adminlte.min.css">
+</head>
+<body class="sidebar-mini sidebar-closed sidebar-collapse" style="height: auto;">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+            <img src="./Prueba_files/S.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">SAKILA</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="./Prueba_files/perfil.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Sakila Database</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashboard
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Widgets
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="min-height: 2080.4px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Film Table</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Film Table</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Film Table</h3>
+                                <button class="btn btn-primary float-right" onclick="showCreateForm()">Add Film</button>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Film ID</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Release Year</th>
+                                            <th>Language ID</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="film-table-body">
+                                        <!-- Data will be populated here by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.2.0
+        </div>
+        <strong>Copyright © 2014-2021 <a href="https://adminlte.io/">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark" style="display: none;">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+    <div id="sidebar-overlay"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="./Prueba_files/jquery.min.js.descarga"></script>
+<!-- Bootstrap 4 -->
+<script src="./Prueba_files/bootstrap.bundle.min.js.descarga"></script>
+<!-- AdminLTE App -->
+<script src="./Prueba_files/adminlte.min.js.descarga"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="./Prueba_files/demo.js.descarga"></script>
+
+<!-- CRUD Form Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLabel">Add Film</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="crudForm">
+                    <input type="hidden" id="filmId">
+                    <div class="form-group">
+                        <label for="filmTitle">Title</label>
+                        <input type="text" class="form-control" id="filmTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="filmDescription">Description</label>
+                        <textarea class="form-control" id="filmDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="releaseYear">Release Year</label>
+                        <input type="number" class="form-control" id="releaseYear" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="languageId">Language ID</label>
+                        <input type="number" class="form-control" id="languageId" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchFilms();
+
+        document.getElementById('crudForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const filmId = document.getElementById('filmId').value;
+            if (filmId) {
+                updateFilm(filmId);
+            } else {
+                createFilm();
+            }
+        });
+    });
+
+    function fetchFilms() {
+        fetch('/api/film')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('film-table-body');
+                tableBody.innerHTML = '';
+                data.forEach((film) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${film.film_id}</td>
+                        <td>${film.title}</td>
+                        <td>${film.description}</td>
+                        <td>${film.release_year}</td>
+                        <td>${film.language_id}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="showUpdateForm(${film.film_id}, '${film.title}', '${film.description}', ${film.release_year}, ${film.language_id})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteFilm(${film.film_id})">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching film data:', error));
+    }
+
+    function showCreateForm() {
+        document.getElementById('crudModalLabel').innerText = 'Add Film';
+        document.getElementById('filmId').value = '';
+        document.getElementById('filmTitle').value = '';
+        document.getElementById('filmDescription').value = '';
+        document.getElementById('releaseYear').value = '';
+        document.getElementById('languageId').value = '';
+        $('#crudModal').modal('show');
+    }
+
+    function showUpdateForm(filmId, title, description, releaseYear, languageId) {
+        document.getElementById('crudModalLabel').innerText = 'Update Film';
+        document.getElementById('filmId').value = filmId;
+        document.getElementById('filmTitle').value = title;
+        document.getElementById('filmDescription').value = description;
+        document.getElementById('releaseYear').value = releaseYear;
+        document.getElementById('languageId').value = languageId;
+        $('#crudModal').modal('show');
+    }
+
+    function createFilm() {
+        const title = document.getElementById('filmTitle').value;
+        const description = document.getElementById('filmDescription').value;
+        const releaseYear = document.getElementById('releaseYear').value;
+        const languageId = document.getElementById('languageId').value;
+
+        fetch('/api/film', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, description, release_year: releaseYear, language_id: languageId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('#crudModal').modal('hide');
+            fetchFilms();
+        })
+        .catch(error => console.error('Error creating film:', error));
+    }
+
+    function updateFilm(filmId) {
+        const title = document.getElementById('filmTitle').value;
+        const description = document.getElementById('filmDescription').value;
+        const releaseYear = document.getElementById('releaseYear').value;
+        const languageId = document.getElementById('languageId').value;
+
+        fetch(`/api/film/${filmId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, description, release_year: releaseYear, language_id: languageId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('#crudModal').modal('hide');
+            fetchFilms();
+        })
+        .catch(error => console.error('Error updating film:', error));
+    }
+
+    function deleteFilm(filmId) {
+        if (confirm('Are you sure you want to delete this film?')) {
+            fetch(`/api/film/${filmId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                fetchFilms();
+            })
+            .catch(error => console.error('Error deleting film:', error));
+        }
+    }
+</script>
+</body>
+</html>
