@@ -14,7 +14,7 @@ app.use(express.json());
 
 
 app.use('/film', film);
-app.use('/city', film);
+app.use('/city', city);
 
 
 app.listen(PORT, () => {
