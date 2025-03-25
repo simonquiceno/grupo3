@@ -51,3 +51,9 @@ Content-Type: application/json
 
 ### Eliminar una Pelicula
 DELETE http://localhost:3080/film/1020
+
+
+### VER TODO EL INVENTARIO
+
+GET http://localhost:3080/inventory
+
