@@ -98,7 +98,78 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <!-- Your content here -->
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>150</h3>
+                                <p>City Records</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-city"></i>
+                            </div>
+                            <a href="cityTableView.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <p>Film Records</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <a href="filmTableView.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+                <!-- /.row -->
+
+                <!-- Main row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <section class="col-lg-7 connectedSortable">
+                        <!-- Custom tabs (Charts with tabs)-->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-chart-pie mr-1"></i>
+                                    City and Film Data
+                                </h3>
+                                <div class="card-tools">
+                                    <ul class="nav nav-pills ml-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#city-chart" data-toggle="tab">City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#film-chart" data-toggle="tab">Film</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content p-0">
+                                    <!-- Morris chart - Sales -->
+                                    <div class="chart tab-pane active" id="city-chart" style="position: relative; height: 300px;">
+                                        <canvas id="cityChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                    <div class="chart tab-pane" id="film-chart" style="position: relative; height: 300px;">
+                                        <canvas id="filmChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </section>
+                    <!-- /.Left col -->
+                </div>
+                <!-- /.row (main row) -->
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
@@ -128,5 +199,54 @@
 <script src="./Prueba_files/adminlte.min.js.descarga"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./Prueba_files/demo.js.descarga"></script>
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $(function () {
+        var ctxCity = document.getElementById('cityChart').getContext('2d');
+        var cityChart = new Chart(ctxCity, {
+            type: 'bar',
+            data: {
+                labels: ['City 1', 'City 2', 'City 3', 'City 4', 'City 5'],
+                datasets: [{
+                    label: 'Number of Records',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+                    borderColor: 'rgba(60,141,188,0.8)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxFilm = document.getElementById('filmChart').getContext('2d');
+        var filmChart = new Chart(ctxFilm, {
+            type: 'bar',
+            data: {
+                labels: ['Film 1', 'Film 2', 'Film 3', 'Film 4', 'Film 5'],
+                datasets: [{
+                    label: 'Number of Records',
+                    data: [7, 11, 5, 8, 3],
+                    backgroundColor: 'rgba(0,166,90,0.9)',
+                    borderColor: 'rgba(0,166,90,0.8)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
