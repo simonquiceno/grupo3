@@ -5,12 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let tabla = document.querySelector('#film_table tbody');
     // Boton de añadir Modal
     let btnModalAñadir = document.getElementById('boton_añadir_modal');
-    // Ventana Modal
-    let modalAñadir = document.getElementById('modalInventario');
+    // Ventana Modal Crear
+    let modalAñadir = document.getElementById('modalFilm');
+    // Ventana Modal Actualizar
+    let modalActualizar = e.target.getElementById('modalFilmUpd');
     // Boton Cerrar Modal
     let closeModalAñadir = document.getElementById('cerrarModalAñadir');
     // Boton crear Film (Dentro de Modal)
     let btnCrear = document.getElementById('btnCrear');
+    // Select añadir language
+    let selectLanguage = document.getElementById('añadir_language_id');
+    // Input ID Film
+    let selectFilmId = document.getElementById('film_id');
+
 
 
 
@@ -65,25 +72,120 @@ document.addEventListener('DOMContentLoaded', () => {
     filterTable();
 
 
-    async function deleteRecord(params) {
-        
+    // GESTIÓN DE BOTONES VENTANAS - AÑADIR
+
+    btnModalAñadir.addEventListener('click', () => {
+        modalAñadir.showModal();
+        loadLanguage();
+    });
+    closeModalAñadir.addEventListener('click', () => {
+        modalAñadir.close();
+    });
+    btnCrear.addEventListener('click', () => {
+        createFilm();
+    });
+
+    async function loadLanguage() {
+        try {
+            let response = await fetch("http://localhost:3080/language");
+            let films = await response.json();
+
+            selectLanguage.innerHTML = '<option value="" disabled selected>Selecciona un lengauje</option>'; // Limpia opciones
+            for (const film of films) {
+                let optionAdd = document.createElement('option')
+                optionAdd.value = film.language_id;
+                optionAdd.textContent = film.name;
+                selectLanguage.appendChild(optionAdd);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
-    async function saveFilm(film) {
-        fetch('film', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(film)
-        });
-        
+    async function createFilm() {
+        console.log('Valor de film_id: ', selectFilmId.value);
+        if (selectFilmId.value != '' && selectLanguage.value != '') {
+            try {
+                let response = await fetch('http://localhost:3080/film', {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(film)
+                })
+            } catch (error) {
+
+            }
+        } else {
+            console.log('El Id de Film y el lenguage son obligatorios')
+        }
     }
 
 
+    // Fetch Delete
+    async function deleteRecord(e) {
+        let idDelete = e.target.getAttribute('data-id');
+        try {
+            let response = await fetch(`http://localhost:3080/film/${idDelete}`, {
+                method: 'DELETE'
+            });
 
+            if (response.ok) {
+                filterTable();
+            } else {
+                alert('Error al eliminar el registro');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    async function loadFilm(params) {
+    // Fetch Update
+
+    async function loadFilmUpdate(e) {
+        modalActualizar.showModal();
+        let idActualizar = e.target.getAttribute('data-id');
+
+        try {
+            // Consulta de la Film por su ID
+            let responseFilm = await fetch(`http://localhost:3080/film/${idActualizar}`)
+            let dataFilm = await responseFilm.json();
+            // Consulta de los Lenguages
+            let responseLanguage = await fetch(`http://localhost:3080/language`);
+            let dataLanguage = await responseLanguage.json();
+
+            let selectLanguage_upd = document.getElementById('actualizar_language_id_upd');
+
+            // Cargamos las películas aquí ( para tener todo en el desplegable)
+            selectLanguage_upd.innerHTML = '<option value="" disabled>Selecciona un lengauge</option>'; // Limpia opciones
+            dataFilm.forEach(opcion => {
+                let optionAdd = document.createElement('option')
+                optionAdd.value = opcion.film_id;
+                optionAdd.textContent = opcion.title;
+                selectLanguage_upd.appendChild(optionAdd);
+            });
+            
+            selectLanguage_upd.innerHTML = '<option value="" disabled>Selecciona un lengauge</option>'; // Limpia opciones
+            for (const film of films) {
+                let optionAdd = document.createElement('option')
+                optionAdd.value = film.language_id;
+                optionAdd.textContent = film.name;
+                selectLanguage.appendChild(optionAdd);
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
 
     }
+
+    // async function saveFilm(film) {
+    //     fetch('film', {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(film)
+    //     });
+    // }
 })

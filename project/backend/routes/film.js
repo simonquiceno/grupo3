@@ -8,7 +8,7 @@ route.get("/", async (req, res) => {
     const pgClient = new pg.Client(dbconnection);
     await pgClient.connect();
 
-    let result = await pgClient.query('select film_id, title, description, release_year, name, rental_duration, rental_rate, length, replacement_cost, rating from film join language using(language_id);');
+    let result = await pgClient.query('select film_id, title, description, release_year, language_id, name, rental_duration, rental_rate, length, replacement_cost, rating from film join language using(language_id);');
     res.json(result.rows);
 
     await pgClient.end();
