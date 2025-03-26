@@ -16,9 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Select añadir language
     let selectLanguage = document.getElementById('añadir_language_id');
     // Input ID Film
-    let selectFilmId = document.getElementById('film_id');
-
-
+    // let selectFilmId = document.getElementById('film_id');
 
 
     // Función asíncrona para obtener todos los posts
@@ -81,8 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModalAñadir.addEventListener('click', () => {
         modalAñadir.close();
     });
-    btnCrear.addEventListener('click', () => {
-        createFilm();
+
+    btnCrear.addEventListener('click', async () => {
+        let film = {
+            "film_id": film_id.value,
+            "title": title.value,
+            "description": description.value,
+            "release_year": release_year.valueOf(),
+            "language": añadir_language_id.value,
+            "rental_duration": rental_duration.valueOf(),
+            "rental_rate": rental_rate.valueOf(),
+            "length": length.valueOf(),
+            "replacement_cost": replacement_cost.valueOf()
+        }
+        await createFilm(film);
     });
 
     async function loadLanguage() {
@@ -103,21 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    async function createFilm() {
-        console.log('Valor de film_id: ', selectFilmId.value);
-        if (selectFilmId.value != '' && selectLanguage.value != '') {
-            try {
-                let response = await fetch('http://localhost:3080/film', {
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(film)
-                })
-            } catch (error) {
-
-            }
-        } else {
-            console.log('El Id de Film y el lenguage son obligatorios')
+    async function createFilm(film) {
+        try {
+            let response = await fetch('http://localhost:3080/film', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(film)
+            });
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -149,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Consulta de la Film por su ID
             let responseFilm = await fetch(`http://localhost:3080/film/${idActualizar}`)
-            let dataFilm = await responseFilm.json();
+            let dataFilms = await responseFilm.json();
             // Consulta de los Lenguages
             let responseLanguage = await fetch(`http://localhost:3080/language`);
             let dataLanguage = await responseLanguage.json();
@@ -158,34 +164,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Cargamos las películas aquí ( para tener todo en el desplegable)
             selectLanguage_upd.innerHTML = '<option value="" disabled>Selecciona un lengauge</option>'; // Limpia opciones
-            dataFilm.forEach(opcion => {
+            dataFilms.forEach(opcion => {
                 let optionAdd = document.createElement('option')
                 optionAdd.value = opcion.film_id;
                 optionAdd.textContent = opcion.title;
                 selectLanguage_upd.appendChild(optionAdd);
             });
-            
+
             selectLanguage_upd.innerHTML = '<option value="" disabled>Selecciona un lengauge</option>'; // Limpia opciones
-            for (const film of films) {
+            for (const film of dataFilms) {
                 let optionAdd = document.createElement('option')
                 optionAdd.value = film.language_id;
                 optionAdd.textContent = film.name;
                 selectLanguage.appendChild(optionAdd);
             }
-            
+
         } catch (error) {
             console.log(error);
         }
 
     }
-
-    // async function saveFilm(film) {
-    //     fetch('film', {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(film)
-    //     });
-    // }
-})
+});
