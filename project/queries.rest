@@ -28,11 +28,11 @@ Content-Type: application/json
 }
 
 ### Editar una Pelicula
-PUT http://localhost:3080/film/1020
+PUT http://localhost:3080/film/1019
 Content-Type: application/json
 
 {
-    "title": "300: El origen de un imperio",
+    "title": "300: El origen de un vimperio",
     "description": "A Intrepid Panorama of a Mad Scientist And a Boy who must Redeem a Boy in A Monastery",
     "release_year": 2005,
     "language_id": 1,
