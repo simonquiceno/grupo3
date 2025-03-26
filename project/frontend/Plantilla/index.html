@@ -62,10 +62,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="filmTableView.html" class="nav-link">
+                        <a href="film.html" class="nav-link">
                             <i class="nav-icon fas fa-film"></i>
                             <p>
                                 Film Table
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="inventory.html" class="nav-link">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>
+                                Inventory Table
                             </p>
                         </a>
                     </li>
@@ -118,13 +126,27 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <h3>53</h3>
                                 <p>Film Records</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-film"></i>
                             </div>
-                            <a href="filmTableView.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="film.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>200</h3>
+                                <p>Inventory Records</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <a href="inventory.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -140,7 +162,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fas fa-chart-pie mr-1"></i>
-                                    City and Film Data
+                                    City, Film, and Inventory Data
                                 </h3>
                                 <div class="card-tools">
                                     <ul class="nav nav-pills ml-auto">
@@ -150,17 +172,25 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="#film-chart" data-toggle="tab">Film</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#inventory-chart" data-toggle="tab">Inventory</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content p-0">
-                                    <!-- Morris chart - Sales -->
+                                    <!-- City chart -->
                                     <div class="chart tab-pane active" id="city-chart" style="position: relative; height: 300px;">
                                         <canvas id="cityChart" height="300" style="height: 300px;"></canvas>
                                     </div>
+                                    <!-- Film chart -->
                                     <div class="chart tab-pane" id="film-chart" style="position: relative; height: 300px;">
                                         <canvas id="filmChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                    <!-- Inventory chart -->
+                                    <div class="chart tab-pane" id="inventory-chart" style="position: relative; height: 300px;">
+                                        <canvas id="inventoryChart" height="300" style="height: 300px;"></canvas>
                                     </div>
                                 </div>
                             </div><!-- /.card-body -->
@@ -235,6 +265,28 @@
                     data: [7, 11, 5, 8, 3],
                     backgroundColor: 'rgba(0,166,90,0.9)',
                     borderColor: 'rgba(0,166,90,0.8)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxInventory = document.getElementById('inventoryChart').getContext('2d');
+        var inventoryChart = new Chart(ctxInventory, {
+            type: 'bar',
+            data: {
+                labels: ['Inventory 1', 'Inventory 2', 'Inventory 3', 'Inventory 4', 'Inventory 5'],
+                datasets: [{
+                    label: 'Number of Records',
+                    data: [10, 15, 8, 12, 6],
+                    backgroundColor: 'rgba(243,156,18,0.9)',
+                    borderColor: 'rgba(243,156,18,0.8)',
                     borderWidth: 1
                 }]
             },
