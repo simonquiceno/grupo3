@@ -5,6 +5,8 @@ import film from "./backend/routes/film.js";
 import city from "./backend/routes/city.js";
 import inventory from "./backend/routes/inventory.js";
 import store from "./backend/routes/store.js";
+import language from "./backend/routes/language.js";
+
 
 const app = express();
 const PORT = 3080;
@@ -18,10 +20,9 @@ app.use('/film', film);
 app.use('/city', city);
 app.use('/inventory', inventory);
 app.use('/store', store);
-
 app.use('/language', language);
+
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo por el puerto ${PORT}.`);
 })
-
-import language from "./backend/routes/language.js";
