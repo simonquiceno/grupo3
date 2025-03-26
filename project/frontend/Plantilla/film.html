@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <title>Films</title>
   <style>
     .spinner {
@@ -109,6 +110,10 @@
               </table>
               <div id="spinner" class="spinner"></div>
             </div>
+            <div class="pagination d-flex justify-content-between">
+              <button id="prevPage" class="btn btn-secondary">Anterior</button>
+              <button id="nextPage" class="btn btn-secondary">Siguiente</button>
+            </div>
             <!-- /.card-body -->
           </div>
         </div>
@@ -141,7 +146,7 @@
 
         <div class="form-group">
           <label for="release_year">Año de salida</label>
-          <input type="number" id="release_year" class="form-control" required>
+          <input type="text" id="release_year" class="form-control" required>
         </div>
 
         <div class="form-group">
@@ -155,12 +160,12 @@
           <label for="rental_duration">Duracion del alquiler</label>
           <input type="number" id="rental_duration" class="form-control" required>
         </div>
-        
+
         <div class="form-group">
           <label for="rental_rate">Tarifa de alquiler</label>
           <input type="number" id="rental_rate" class="form-control" required>
         </div>
-        
+
         <div class="form-group">
           <label for="length">Duracion</label>
           <input type="number" id="length" class="form-control" required>
@@ -199,8 +204,8 @@
     <div class="modal-body">
       <form id="formFilm">
         <div class="form-group">
-          <label for="film_id_upd">ID Film</label>
-          <input type="text" id="film_id" class="form-control" required>
+          <label for="film_id">ID Film</label>
+          <input type="text" id="film_id_upd" class="form-control" required>
         </div>
 
         <div class="form-group">
@@ -226,15 +231,15 @@
         </div>
 
         <div class="form-group">
-          <label for="release_year">Duracion del alquiler</label>
-          <input type="number" id="release_year_upd" class="form-control" required>
+          <label for="rental_duration">Duracion del alquiler</label>
+          <input type="number" id="rental_duration_upd" class="form-control" required>
         </div>
-        
+
         <div class="form-group">
           <label for="rental_rate">Tarifa de alquiler</label>
           <input type="number" id="rental_rate_upd" class="form-control" required>
         </div>
-        
+
         <div class="form-group">
           <label for="length">Duracion</label>
           <input type="number" id="length_upd" class="form-control" required>
