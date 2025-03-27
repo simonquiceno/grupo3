@@ -10,10 +10,10 @@ route.get("/", async (req, res) => {
 
     // Obtenemos el número de página y el tamaño de página desde la query (con valores por defecto)
     const page = parseInt(req.query.page) || 1;  // Página actual, por defecto la 1
-    const pageSize = parseInt(req.query.pageSize) || 50;  // Número de registros por página, por defecto 20
+    const pageSize = parseInt(req.query.pageSize) || 100;  // Número de registros por página, por defecto 100
     const offset = (page - 1) * pageSize;  // Calculamos el "offset"
 
-    let result = await pgClient.query(`select film_id, title, description, release_year, language_id, name, rental_duration, rental_rate, length, replacement_cost, rating from film join language using(language_id) limit $1 offset $2`, [pageSize, offset]);
+    let result = await pgClient.query(`select film_id, title, description, release_year, language_id, name, rental_duration, rental_rate, length, replacement_cost, rating from film join language using(language_id) order by film_id limit $1 offset $2`, [pageSize, offset]);
 
     res.json(result.rows);
 
@@ -56,8 +56,8 @@ route.put('/:id', async (req, res) => {
 
     const data = req.body;
 
-    let result = await pgClient.query('update film set title = $1, description = $2, release_year = $3, language_id = $4, original_language_id = $5, rental_duration = $6, rental_rate = $7, length = $8, replacement_cost = $9, rating = $10, special_features = $11, last_update = $12 WHERE film_id = $13',
-        [data.title, data.description, data.release_year, data.language_id, data.original_language_id, data.rental_duration, data.rental_rate, data.length, data.replacement_cost, data.rating, data.special_features, data.last_update, req.params.id]);
+    let result = await pgClient.query('update film set title = $1, description = $2, release_year = $3, language_id = $4, rental_duration = $5, rental_rate = $6, length = $7, replacement_cost = $8, rating = $9 where film_id = $10',
+        [data.title, data.description, data.release_year, data.language_id, data.rental_duration, data.rental_rate, data.length, data.replacement_cost, data.rating, req.params.id]);
     res.json({ message: 'Pelicula editada correctamente', film_id: req.body.film_id });
 
     await pgClient.end();

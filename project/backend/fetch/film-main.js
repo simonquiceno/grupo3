@@ -6,34 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Página actual
     let currentPage = 1;
     // Número de registros por página
-    let pageSize = 50;
-    // Boton de añadir Modal
-    let btnModalAñadir = document.getElementById('boton_añadir_modal');
-    // Ventana Modal Crear
-    let modalAñadir = document.getElementById('modalFilm');
-    // Ventana Modal Actualizar
-    let modalActualizar = document.getElementById('modalFilmUpd');
-    // Boton Cerrar Modal
-    let closeModalAñadir = document.getElementById('cerrarModalAñadir');
-    // Boton Cerrar Modal Actualizar
-    let closeModalActualizar = document.getElementById('cerrarModalActualizar');
-    // Boton crear Film (Dentro de Modal)
-    let btnCrear = document.getElementById('btnCrear');
-    // Boton actualizar Film
-    let btnActualizar = document.getElementById('btnActualizar');
-    // Select añadir language
-    let selectLanguage = document.getElementById('añadir_language_id');
-    // Input ID Film
-    // let selectFilmId = document.getElementById('film_id');
+    let pageSize = 100;
 
 
-    // Función asíncrona para obtener todos los posts
+    // #region Función asíncrona para obtener todos los posts
     async function filterTable(page) {
         spinner.style.display = "block";
         try {
             // let response = await fetch("http://localhost:3080/film");
             let response = await fetch(`http://localhost:3080/film?page=${page}&pageSize=${pageSize}`);
             let films = await response.json();
+
             tabla.innerHTML = '';
 
             for (let film of films) {
@@ -61,34 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             /* Asociar el evento de los botones ELIMINAR y EDITAR */
             // Actualizar
-            let botonActualizar = document.querySelectorAll('.editar');
-            botonActualizar.forEach(boton => {
+            for (const boton of document.querySelectorAll('.editar')) {
                 boton.addEventListener('click', loadFilmUpdate);
-            });
+            }
 
             // Eliminar
-            let botonDelete = document.querySelectorAll('.eliminar');
-            botonDelete.forEach(boton => {
+            for (const boton of document.querySelectorAll('.eliminar')) {
                 boton.addEventListener('click', deleteRecord);
-            });
+            }
 
         } catch (error) {
             console.log(error);
         }
     }
+
+    // #endregion
+
     // Llamamos a la función para ejecutar la petición
     filterTable(currentPage);
 
-    /* Agregar eventos a los botones de paginación */
+    // #region Agregar eventos a los botones de paginación
     // Siguiente página
-    const nextPage = document.getElementById('nextPage');
     nextPage.addEventListener('click', () => {
         currentPage++;
         filterTable(currentPage);
     });
 
     // Página anterior
-    const prevPage = document.getElementById('prevPage');
     prevPage.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
@@ -97,37 +79,52 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Ya estas en la primnera página');
         }
     });
+    // #endregion
 
+    // #region GESTIÓN DE BOTONES VENTANAS - AÑADIR
 
-    // GESTIÓN DE BOTONES VENTANAS - AÑADIR
+    // Ventana Modal Crear
+    let modalAñadir = document.getElementById('modalFilm');
 
+    // Boton de añadir Modal
+    let btnModalAñadir = document.getElementById('boton_añadir_modal');
     btnModalAñadir.addEventListener('click', () => {
         modalAñadir.showModal();
         loadLanguage();
     });
+
+    // Boton Cerrar Modal
+    let closeModalAñadir = document.getElementById('cerrarModalAñadir');
     closeModalAñadir.addEventListener('click', () => {
         modalAñadir.close();
     });
+
+    // Boton crear Film (Dentro de Modal)
+    let btnCrear = document.getElementById('btnCrear');
 
     btnCrear.addEventListener('click', async () => {
         let film = {
             "film_id": film_id.value,
             "title": title.value,
             "description": description.value,
-            "release_year": isNaN(parseInt(release_year.value)) ? null : parseInt(release_year.value),
+            "release_year": isNaN(parseFloat(release_year.value)) ? null : parseFloat(release_year.value),
             // "release_year": parseInt(release_year.value),
-            "language_id": isNaN(parseInt(añadir_language_id.value)) ? null : parseInt(añadir_language_id.value),
-            "rental_duration": isNaN(parseInt(rental_duration.value)) ? null : parseInt(rental_duration.value),
-            "rental_rate": isNaN(parseInt(rental_rate.value)) ? null : parseInt(rental_rate.value),
-            "length": isNaN(parseInt(length.valueOf())) ? null : parseInt(length.valueOf()),
+            "language_id": isNaN(parseFloat(añadir_language_id.value)) ? null : parseFloat(añadir_language_id.value),
+            "rental_duration": isNaN(parseFloat(rental_duration.value)) ? null : parseFloat(rental_duration.value),
+            "rental_rate": isNaN(parseFloat(rental_rate.value)) ? null : parseFloat(rental_rate.value),
+            "length": isNaN(parseFloat(length.valueOf())) ? null : parseFloat(length.valueOf()),
+            "length": isNaN(parseFloat(length.value)) ? null : parseFloat(length.value),
             "replacement_cost": isNaN(parseFloat(replacement_cost.value)) ? null : parseFloat(replacement_cost.value),
             "rating": rating.value
         }
         await createFilm(film);
     });
+    // #endregion
 
-    // Cargar los languages
+    // #region Cargar los languages
     async function loadLanguage() {
+        // Select añadir language
+        let selectLanguage = document.getElementById('añadir_language_id');
         try {
             let response = await fetch("http://localhost:3080/language");
             let films = await response.json();
@@ -142,26 +139,24 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.log(error);
         }
-
     }
+    // #endregion
 
-    // Crear una nueva Film
+    // #region Crear una nueva Film
     async function createFilm(film) {
         try {
             let response = await fetch('http://localhost:3080/film', {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(film)
             });
         } catch (error) {
             console.log(error);
         }
     }
+    // #endregion
 
-
-    // Fetch Delete
+    // #region Fetch Delete
     async function deleteRecord(e) {
         let idDelete = e.target.getAttribute('data-id');
         try {
@@ -169,27 +164,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'DELETE'
             });
 
-            if (response.ok) {
-                filterTable();
-            } else {
-                alert('Error al eliminar el registro');
-            }
+            if (response.ok) filterTable(currentPage);
+            else alert('Error al eliminar el registro');
         } catch (error) {
             console.log(error);
         }
     }
+    // #endregion
 
-    // Gestión de botones ventana - Actualizar
+    // #region Gestión de botones ventana - Actualizar
 
-    // Botón cerrar modal Update
+    // Ventana Modal Actualizar
+    let modalActualizar = document.getElementById('modalFilmUpd');
+
+    let closeModalActualizar = document.getElementById('cerrarModalActualizar');
     closeModalActualizar.addEventListener('click', () => {
         modalActualizar.close();
     });
 
-    // Botón guardar modal Update
-    btnActualizar.addEventListener('click', () => {
-        updateInventory();
-    })
 
     // Fetch Update
     async function loadFilmUpdate(e) {
@@ -198,9 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Consulta de la Film por su ID
-            let responseFilm = await fetch(`http://localhost:3080/film/${idActualizar}`)
+            let responseFilm = await fetch(`http://localhost:3080/film/${idActualizar}`);
             let dataFilm = await responseFilm.json();
-            
+
             // Consulta de los Lenguages
             let responseLanguage = await fetch(`http://localhost:3080/language`);
             let dataLanguages = await responseLanguage.json();
@@ -258,4 +250,51 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(error);
         }
     }
+
+    // Boton actualizar Film
+    let btnActualizar = document.getElementById('btnActualizar');
+    btnActualizar.addEventListener('click', () => {
+        updateFilm();
+    })
+
+    // Guardar los nuevos datos de Film
+    async function updateFilm() {
+        console.log('Llega')
+        if (film_id_upd.value != '' && title_upd.value != '' && description_upd.value != '' &&
+            release_year_upd.value != '' && actualizar_language_id_upd.value != '' && rental_duration_upd.value != '' &&
+            rental_rate_upd.value != '' && length_upd.value != '' && replacement_cost_upd.value != '' && rating_upd.value != '') {
+                console.log('Llega mas')
+            try {
+                let response = fetch(`http://localhost:3080/film/${film_id_upd.value}`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        film_id: film_id_upd.value,
+                        title: title_upd.value,
+                        description: description_upd.value,
+                        release_year: isNaN(parseFloat(release_year_upd.value)) ? null : parseFloat(release_year_upd.value),
+                        language_id: isNaN(parseFloat(actualizar_language_id_upd.value)) ? null : parseFloat(actualizar_language_id_upd.value),
+                        rental_duration: isNaN(parseFloat(rental_duration_upd.value)) ? null : parseFloat(rental_duration_upd.value),
+                        rental_rate: isNaN(parseFloat(rental_rate_upd.value)) ? null : parseFloat(rental_rate_upd.value),
+                        length: isNaN(parseFloat(length_upd.value)) ? null : parseFloat(length_upd.value),
+                        replacement_cost: isNaN(parseFloat(replacement_cost_upd.value)) ? null : parseFloat(replacement_cost_upd.value),
+                        rating: rating_upd.value
+                    })
+                });
+                if (response.ok) {
+                    console.log('hecho')
+                    let modalActualizar = document.getElementById('modalFilmUpd');
+                    modalActualizar.close();
+                    filterTable(currentPage);
+                } else {
+                    console.error('Error al actualizar la película:', await response.text());
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+    // #endregion
 });
